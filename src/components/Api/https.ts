@@ -6,19 +6,6 @@ const header = {
     'Api-Key': API_KEY,
 };
 
-
-// .then() là dùng thay thế cho async await
-// 1 dùng async await để sử lý bất đồng bộ 
-// 2 là dùng then() để catch kết quả return về trong call back
-// const a = await https.get() <-- đây là 1 câu request điển hình
-// khi đó a là giá trị được https.get() trả về
-// trong trường hợp dùng async await
-// return https.get('abc').then( (a) => {console.log(a)}) <-- khi đó a được dùng
-// như 1 tham số và truyền vào call back để tiếp tục xử lý, lúc này k cần async await
-// khuyến khích dùng async await, thích nghi trong mọi hoàn cảnh
-//dùng ts thì dùng ngon ngon tí ^^
-
-
 const qs = require('qs');
 export default class Http {
     static async get(patch: string) {
