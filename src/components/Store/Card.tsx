@@ -1,73 +1,90 @@
 import React from "react";
-//import Button from "../constants/Button";
 import InfoCard from "../Constants/infoCard";
 import Image from "../Constants/Image";
 import { Links } from "../Router/Link";
 import Http from "../Api/https";
 import { connect } from "react-redux";
-import { getStore } from "../Redux/actions/index";
-import {State} from "../Redux/index";
-//import Store from '../Types/store';
+import { loadStore, loadStoreError, loadStoreSuccess, Company } from "../Redux/actions/index";
+import { StateInit } from "../Redux/index";
 
 interface Props {
-  companys: any[];
+  companys: any[],
+  dispatch: any,
+  error: any,
+  isLoaded: boolean
 }
 
 class Card extends React.Component<Props> {
-  //const button='<Button c name="edit" type="light" block="btn-block"/>';
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      companys: []
-    };
+  componentDidMount() {
+    this.fecthData()
   }
-  async componentDidMount() {
-    const datas = await Http.get("companys");
-    getStore(datas);
-    console.log("get data ",datas);
-  }
-  render() {
-    //const { companys } = this.props;
 
-    return (
-      <div className="card" style={{ width: "18rem" }}>
-        <Image src="https://via.placeholder.com/240/4e557c" alt="ahihi" />
-        <div className="card-body">
-          <InfoCard
-            title="STORE INFO."
-            name="K.O.I The"
-            address=" 123 Ho Tung Mau"
-            phone="0123456789"
-          />
-          <InfoCard
-            title="RED INVOID INFO."
-            name="K.O.I The International Company"
-            address=" 123 Ho Tung Mau"
-            phone="0102344532"
-          />
-          <Links
-            url="edit"
-            title="Edit Profile"
-            type="light"
-            block="btn-block"
-          ></Links>
+  fecthData = async () => {
+    const { dispatch } = this.props
+    dispatch(loadStore)
+    Http.get('companys')
+      .then(result => {
+        console.log('result', result)
+        dispatch(loadStoreSuccess(result.companys))
+      }).catch(error => { dispatch(loadStoreError(error)) })
+  }
+
+  StoreInfo = () => {
+    const { companys } = this.props;
+    if (companys) {
+      return (
+        companys.map((item, index) => (
+          <div key={index}>
+            <Image src={item.avatar} alt="ahihi" />
+            <div className="card-body">
+              <InfoCard
+                title="STORE INFO."
+                name={item.name}
+                address={item.address1}
+                phone={item.phone}
+              />
+              <InfoCard
+                title="RED INVOID INFO."
+                name={item.name_office}
+                address={item.address2}
+                phone={item.phone}
+              />
+              <Links
+                url={"edit"+index}
+                title="Edit Profile"
+                type="light"
+                block="btn-block"
+              ></Links>
+            </div>
+          </div>
+        ))
+      )
+    }
+  }
+
+  render() {
+    const { error, isLoaded, companys } = this.props;
+    console.log(companys)
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (isLoaded === true) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div className="card" style={{ width: "18rem" }}>
+          {this.StoreInfo()}
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
-const mapStateToProps = (state: State) => {
-  console.log("data lấy từ store ",state.store.companys);
-
+const mapStateToProps = (state: StateInit) => {
   return {
-    companys: state.store.companys
+    companys: state.store.companys,
+    isLoaded: state.store.isLoaded,
+    error: state.store.error
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  getStore: (datas: any) => {
-    dispatch(getStore(datas));
-  }
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(mapStateToProps)(Card);

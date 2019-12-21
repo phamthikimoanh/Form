@@ -15,23 +15,23 @@ export const initStore: StoreState = {
 
 const storeReducer = (state = initStore, action: configAction) => {
     switch (action.type) {
-        case types.GET_STORE:
-            return {
-                ...state,
-                companys: action.payload.datas,
-                isLoaded: true
-            };
         case types.LOAD_STORE_SUCCESS:
             return {
                 ...state,
+                isLoaded: false,
+                companys: action.payload.companys,
             };
         case types.LOAD_STORE_ERROR:
             return {
                 ...state,
+                error: action.payload.error,
+                isLoaded: false
             };
-        case types.LOAD_STORE_LOADING:
+        case types.LOAD_STORE:
             return {
                 ...state,
+                isLoaded: true,
+                error: null
             }
         default:
             return state;
