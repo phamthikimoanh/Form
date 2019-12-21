@@ -3,10 +3,17 @@ export const LOAD_STORE_ERROR = "LOAD_STORE_ERROR";
 export const LOAD_STORE_LOADING = "LOAD_STORE_LOADING";
 export const LOAD_STORE_SUCCESS = "LOAD_STORE_SUCCESS";
 
+<<<<<<< HEAD
 export const getStore = (datas:any[]) =>{
     return {
         type: GET_STORE,
         payload: datas
+=======
+export const getStore = (datas:any) =>{
+    return {
+        type: GET_STORE,
+        payload: {datas}
+>>>>>>> master
     }
 }
 
