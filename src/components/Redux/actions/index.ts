@@ -1,18 +1,21 @@
+import {StoreJson} from "../../Types/store";
+
+
 export const GET_STORE = "GET_STORE";
 export const LOAD_STORE_ERROR = "LOAD_STORE_ERROR";
 export const LOAD_STORE = "LOAD_STORE";
 export const LOAD_STORE_SUCCESS = "LOAD_STORE_SUCCESS";
 
-export type Company = {
-    id: number
-    avatar: string
-    name: string
-    mst: number
-    phone: string
-    address1: string
-    address2?: string
-    name_office: string
-}
+// export type Company = {
+//     id: number
+//     avatar: string
+//     name: string
+//     mst: number
+//     phone: string
+//     address1: string
+//     address2?: string
+//     name_office: string
+// }
 
 export const loadStoreError = (error: null) => ({
     type: LOAD_STORE_ERROR,
@@ -23,7 +26,7 @@ export const loadStore = () => ({
     type: LOAD_STORE
 })
 
-export const loadStoreSuccess = (companys: Company[]) => ({
+export const loadStoreSuccess = (companys: StoreJson[]) => ({
     type: LOAD_STORE_SUCCESS,
     payload: { companys }
 

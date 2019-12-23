@@ -10,7 +10,7 @@ import Titleh4 from '../../Constants/TitleH4';
 // }
 const Store = () => {
     return(
-        <div className="mr-auto p-2 bd-highlight">
+        <div className="mr-5 p-2 bd-highlight">
             <Titleh4 title="Store Image"/>
 
             <Image src="https://via.placeholder.com/240/4e557c"  alt="officia porro"/>

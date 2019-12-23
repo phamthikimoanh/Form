@@ -4,8 +4,9 @@ import Image from "../Constants/Image";
 import { Links } from "../Router/Link";
 import Http from "../Api/https";
 import { connect } from "react-redux";
-import { loadStore, loadStoreError, loadStoreSuccess, Company } from "../Redux/actions/index";
+import { loadStore, loadStoreError, loadStoreSuccess } from "../Redux/actions/index";
 import { StateInit } from "../Redux/index";
+import { StoreJson } from "../Types/store";
 
 interface Props {
   companys: any[],
@@ -19,12 +20,17 @@ class Card extends React.Component<Props> {
     this.fecthData()
   }
 
+  // if (response.status !== 200) {
+  //   throw new Error("Not 200 response")
+  //  } else return (response.json());
+
+
   fecthData = async () => {
     const { dispatch } = this.props
     dispatch(loadStore)
     Http.get('companys')
       .then(result => {
-        console.log('result', result)
+        console.log('Result', result.companys)
         dispatch(loadStoreSuccess(result.companys))
       }).catch(error => { dispatch(loadStoreError(error)) })
   }
@@ -33,31 +39,17 @@ class Card extends React.Component<Props> {
     const { companys } = this.props;
     if (companys) {
       return (
-        companys.map((item, index) => (
-          <div key={index}>
-            <Image src={item.avatar} alt="ahihi" />
-            <div className="card-body">
-              <InfoCard
-                title="STORE INFO."
-                name={item.name}
-                address={item.address1}
-                phone={item.phone}
-              />
-              <InfoCard
-                title="RED INVOID INFO."
-                name={item.name_office}
-                address={item.address2}
-                phone={item.phone}
-              />
-              <Links
-                url={"edit"+index}
-                title="Edit Profile"
-                type="light"
-                block="btn-block"
-              ></Links>
-            </div>
-          </div>
-        ))
+        companys.map((item: StoreJson, index: number) => {
+          return (
+            <div key={index}>
+              <Image src={item.avatar} alt="ahihi" />
+              <div className="card-body">
+                <InfoCard title="STORE INFO." name={item.name} address={item.address + ", " + item.district + ", " + item.city} phone={item.phone} />
+                <InfoCard title="RED INVOID INFO." name={item.redInvoice.name_office} address={item.redInvoice.address + ", " + item.redInvoice.district + ", " + item.redInvoice.city} phone={item.redInvoice.taxCode} />
+                <Links url={"edit" + index} title="Edit Profile" type="light" block="btn-block"></Links>
+              </div>
+            </div>);
+        })
       )
     }
   }
@@ -79,6 +71,8 @@ class Card extends React.Component<Props> {
   }
 }
 const mapStateToProps = (state: StateInit) => {
+  console.log("dữ liệu lấy từ store redux:", state.store.companys);
+
   return {
     companys: state.store.companys,
     isLoaded: state.store.isLoaded,

@@ -1,9 +1,9 @@
 import * as types from '../actions/index';
 import { configAction } from '../actions/configAction';
-import Store from '../../Types/store';
+import {StoreJson} from '../../Types/store';
 
 interface StoreState {
-    companys: Store | any[],
+    companys: StoreJson | any[],
     isLoaded: boolean,
     error: any
 }
