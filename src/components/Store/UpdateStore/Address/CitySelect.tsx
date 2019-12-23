@@ -2,7 +2,7 @@ import React from "react";
 type Props = {
     // data: any[],
     // selectedId: number,
-    onSelect: (event: any) => void | null
+    onSelect: () => void | null
 }
 const City = (props: Props) => {
     const { onSelect } = props;
@@ -10,9 +10,8 @@ const City = (props: Props) => {
     //     onSelect(parseInt(event.target.value));
     // }
     return (
-        <div>
-            <span>City: </span>
-            <select onClick={onSelect}>
+        <div className="form-group flex-fill ml-2">
+            <select className="form-control" onClick={onSelect}>
                 <option>Select city</option>
                 <option value="grapefruit">Grapefruit</option>
                 <option value="lime">Lime</option>

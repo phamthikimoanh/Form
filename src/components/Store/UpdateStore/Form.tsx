@@ -1,6 +1,6 @@
 import * as React from "react";
 import Titleh4 from "../../Constants/TitleH4";
-import SelectAddr from "../UpdateStore/Index";
+import Address from "../UpdateStore/Address/Index";
 //import { StoreJson } from "../../Types/store"
 
 const Form = () => {
@@ -24,7 +24,7 @@ const Form = () => {
             onChange={e => e.target.value}
           />
         </div>
-        <SelectAddr />
+        <Address />
         {/* <div className="form-group flex-fill ml-2">
           <select className="form-control">
             <option>City</option>
@@ -57,7 +57,7 @@ const Form = () => {
             onChange={e => e.target.value}
           />
         </div>
-        {/* <SelectAddr /> */}
+        <Address />
 
         {/* <div className="form-group flex-fill ml-2">
           <select className="form-control">

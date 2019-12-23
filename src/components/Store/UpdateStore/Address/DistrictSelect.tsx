@@ -3,16 +3,15 @@ import React from "react";
 type Props = {
     // data: any[],
     // selectedId: number,
-    onSelect: (event: any) => void | null
+    onSelect: () => void | null
 }
 const District = (props: Props) => {
     const { onSelect } = props;
 
     return (
-        <div>
-            <span>District: </span>
-            <select onChange={onSelect} >
-                <option>Select province</option>
+        <div className="form-group flex-fill ml-2">
+            <select className="form-control" onClick={onSelect}>
+                <option>Select District</option>
                 <option value="grapefruit">Grapefruit</option>
                 <option value="lime">Lime</option>
                 <option value="coconut">Coconut</option>

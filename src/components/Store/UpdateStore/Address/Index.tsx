@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import CitySelect from "./CitySelect";
 import DistrictSelect from "./DistrictSelect";
 import Http from '../../../Api/https';
 
 
 type Props = {
-    data: any[],
-    distId: number
+    // data: any[],
+    // distId: number
 }
 type State = {
     data: Data,
@@ -52,7 +52,7 @@ class Address extends React.Component<Props, State> {
 
     //         }).catch(error => { console.log(error) })
     // }
-    onSelectDistrict = (distId: number) => {
+    onSelectDistrict = () => {
         // const selCities = this.state.data.cities.filter((c: any) => c.provinceId === distId);
         // this.setState({
         //     districtId: distId,
@@ -62,7 +62,7 @@ class Address extends React.Component<Props, State> {
 
     }
 
-    onSelectCity = (city: any) => {
+    onSelectCity = () => {
         // this.setState({
         //     cityId: city.id
         // });
@@ -73,16 +73,14 @@ class Address extends React.Component<Props, State> {
 
     render() {
         return (
-            <div>
+            <Fragment>
                 <DistrictSelect
-
                     onSelect={this.onSelectDistrict}
                 />
                 <CitySelect
-
                     onSelect={this.onSelectCity}
                 />
-            </div>
+            </Fragment>
         );
     }
 }
