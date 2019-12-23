@@ -4,80 +4,86 @@ import DistrictSelect from "./DistrictSelect";
 import Http from '../../../Api/https';
 
 
-type State = {
-    // data: any[]
-}
 type Props = {
-    data: any[]
+    data: any[],
+    distId: number
+}
+type State = {
+    data: Data,
     districts: any[],
     districtId: number,
     cities: any,
     cityId: number
 }
+type Data = {
+    districts: [
+        { id: number, name: string },
+    ],
+    cities: [
+        { id: number, name: string, districtId: number },
+    ]
+}
 class Address extends React.Component<Props, State> {
-    // constructor(props: Props) {
-    //     super(props);
-    //     this.state = {
-    //         districts: [],
-    //         districtId: 0,
-    //         cities: [],
-    //         cityId: 0
-    //     };
-    // }
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            data: {
+                districts: [
+                    { id: 0, name: "" },
+                ],
+                cities: [
+                    { id: 0, name: "", districtId: 0 },
+                ]
+            },
+            districts: [],
+            districtId: 0,
+            cities: [],
+            cityId: 0
+        };
+    }
     // componentDidMount() {
     //     this.fetchData()
     // }
     // fetchData = async () => {
     //     Http.get('address')
     //         .then(result => {
-    //             console.log('Result', result)
+    //             console.log('Result address: ', result)
     //             this.setState({ data: result })
 
     //         }).catch(error => { console.log(error) })
     // }
-    // onSelectDistrict = (distId: number) => {
-    //     const selCities = this.state.data.cities.filter((c: any) => c.provinceId === distId);
-    //     this.setState({
-    //         districtId: distId,
-    //         cities: selCities
-    //     });
-    // }
+    onSelectDistrict = (distId: number) => {
+        // const selCities = this.state.data.cities.filter((c: any) => c.provinceId === distId);
+        // this.setState({
+        //     districtId: distId,
+        //     cities: selCities
+        // });
+        console.log("đang test district");
 
-    // onSelectCity = (city: any) => {
-    //     this.setState({
-    //         cityId: city.id
-    //     });
-    // }
+    }
+
+    onSelectCity = (city: any) => {
+        // this.setState({
+        //     cityId: city.id
+        // });
+        console.log("đang test city");
+
+    }
 
 
     render() {
         return (
             <div>
                 <DistrictSelect
-                    data={this.props.districts}
-                    selectedId={this.props.districtId}
-                    onSelect="{this.onSelectDistrict}"
+
+                    onSelect={this.onSelectDistrict}
                 />
                 <CitySelect
-                    data={this.props.cities}
-                    selectedId={this.props.cityId}
-                    onSelect="{this.onSelectCity}"
+
+                    onSelect={this.onSelectCity}
                 />
             </div>
         );
     }
 }
 export default Address
-const data = {
-    districts: [
-        { id: 1, name: 'Quan 1' },
-        { id: 2, name: 'Quan 2' },
-        { id: 3, name: 'Ba Ria' },
-        { id: 4, name: 'Long Thanh' }
-    ],
-    cities: [
-        { id: 1, name: 'Ho Chi Minh', districtId: 1 },
-        { id: 2, name: 'Ba Ria', districtId: 3 },
-        { id: 3, name: 'Dong Nai', districtId: 4 }
-    ]
-}

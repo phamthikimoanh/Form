@@ -1,6 +1,6 @@
 import * as React from "react";
 import Titleh4 from "../../Constants/TitleH4";
-//import SelectAddr from "../UpdateStore/Index";
+import SelectAddr from "../UpdateStore/Index";
 //import { StoreJson } from "../../Types/store"
 
 const Form = () => {
@@ -24,7 +24,8 @@ const Form = () => {
             onChange={e => e.target.value}
           />
         </div>
-        <div className="form-group flex-fill ml-2">
+        <SelectAddr />
+        {/* <div className="form-group flex-fill ml-2">
           <select className="form-control">
             <option>City</option>
           </select>
@@ -33,7 +34,7 @@ const Form = () => {
           <select className="form-control" >
             <option>District</option>
           </select>
-        </div>
+        </div> */}
       </div>
       <div className="form-group">
         <label htmlFor="phone">Phone #</label>
@@ -56,7 +57,9 @@ const Form = () => {
             onChange={e => e.target.value}
           />
         </div>
-        <div className="form-group flex-fill ml-2">
+        {/* <SelectAddr /> */}
+
+        {/* <div className="form-group flex-fill ml-2">
           <select className="form-control">
             <option>City</option>
           </select>
@@ -65,7 +68,7 @@ const Form = () => {
           <select className="form-control" >
             <option>District</option>
           </select>
-        </div>
+        </div> */}
       </div>
       <div className="form-group">
         <label htmlFor="mst">MST</label>

@@ -1,11 +1,11 @@
 import React from "react";
 type Props = {
-    data: any[],
-    selectedId: number,
-    onSelect:any
+    // data: any[],
+    // selectedId: number,
+    onSelect: (event: any) => void | null
 }
 const City = (props: Props) => {
-    const { data, selectedId, onSelect } = props;
+    const { onSelect } = props;
     // const onSelect = (event: any) => {
     //     onSelect(parseInt(event.target.value));
     // }
@@ -14,7 +14,11 @@ const City = (props: Props) => {
             <span>City: </span>
             <select onClick={onSelect}>
                 <option>Select city</option>
-                {
+                <option value="grapefruit">Grapefruit</option>
+                <option value="lime">Lime</option>
+                <option value="coconut">Coconut</option>
+                <option value="mango">Mango</option>
+                {/* {
                     data.map(city => (
                         <option
                             key={city.id}
@@ -23,7 +27,7 @@ const City = (props: Props) => {
                             {city.name}
                         </option>
                     ))
-                }
+                } */}
             </select>
         </div>
     );
