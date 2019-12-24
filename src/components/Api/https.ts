@@ -1,11 +1,10 @@
-import { API_URL, API_KEY } from './api';
+import { API_KEY, API_URL } from './api';
 
 const header = {
     Accept: 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
     'Api-Key': API_KEY,
 };
-
 const qs = require('qs');
 export default class Http {
     static async get(patch: string) {

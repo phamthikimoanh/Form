@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { loadStore, loadStoreError, loadStoreSuccess } from "../Redux/actions/index";
 import { StateInit } from "../Redux/index";
 import { StoreJson } from "../Types/store";
+//import { Companys } from "../Mock/companys";
 
 interface Props {
   companys: any[],
@@ -20,18 +21,13 @@ class Card extends React.Component<Props> {
     this.fecthData()
   }
 
-  // if (response.status !== 200) {
-  //   throw new Error("Not 200 response")
-  //  } else return (response.json());
-
-
   fecthData = async () => {
     const { dispatch } = this.props
     dispatch(loadStore)
     Http.get('companys')
       .then(result => {
-        console.log('Result', result.companys)
-        dispatch(loadStoreSuccess(result.companys))
+        console.log('Result', result)
+        dispatch(loadStoreSuccess(result))
       }).catch(error => { dispatch(loadStoreError(error)) })
   }
 
