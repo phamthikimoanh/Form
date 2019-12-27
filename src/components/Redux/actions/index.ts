@@ -5,6 +5,8 @@ export const GET_STORE = "GET_STORE";
 export const LOAD_STORE_ERROR = "LOAD_STORE_ERROR";
 export const LOAD_STORE = "LOAD_STORE";
 export const LOAD_STORE_SUCCESS = "LOAD_STORE_SUCCESS";
+export const EDIT_INFO_COMPANY = "EDIT_INFO_COMPANY";
+
 
 // export type Company = {
 //     id: number

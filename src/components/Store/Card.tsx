@@ -7,13 +7,13 @@ import { connect } from "react-redux";
 import { loadStore, loadStoreError, loadStoreSuccess } from "../Redux/actions/index";
 import { StateInit } from "../Redux/index";
 import { StoreJson } from "../Types/store";
-//import { Companys } from "../Mock/companys";
+import { to_slug } from "../Constants/Slug";
 
 interface Props {
   companys: any[],
   dispatch: any,
   error: any,
-  isLoaded: boolean
+  isLoaded: boolean,
 }
 
 class Card extends React.Component<Props> {
@@ -42,7 +42,7 @@ class Card extends React.Component<Props> {
               <div className="card-body">
                 <InfoCard title="STORE INFO." name={item.name} address={item.address + ", " + item.district + ", " + item.city} phone={item.phone} />
                 <InfoCard title="RED INVOID INFO." name={item.redInvoice.name_office} address={item.redInvoice.address + ", " + item.redInvoice.district + ", " + item.redInvoice.city} phone={item.redInvoice.taxCode} />
-                <Links url={"edit" + index} title="Edit Profile" type="light" block="btn-block"></Links>
+                <Links url={"/edit/" + to_slug(item.name) + "." + index + ".html"} title="Edit Profile" type="light" block="btn-block"></Links>
               </div>
             </div>);
         })

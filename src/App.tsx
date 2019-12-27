@@ -12,8 +12,8 @@ function App() {
         {/* <StoreInfo/> */}
       </Fragment>
       <Switch>
-        <Route exact path="/"><StoreInfo /></Route>
-        <Route path="/:id" exact children={<Index />}/>
+        <Route exact path="/" component={StoreInfo}></Route>
+        <Route exact path="/edit/:slug.:id.html" component={Index}></Route>
       </Switch>
     </Router>
   );
