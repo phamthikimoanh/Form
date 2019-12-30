@@ -1,11 +1,23 @@
 import React from "react";
 import StoreName from "./StoreName";
-import FormGroup from "./FormGroup";
+import Form from "./Form";
 import { useParams } from "react-router-dom";
 import Title from "../../Constants/Title";
-
-const Index = () => {
+type Props = {
+  //url: {};
+  //urlImage:{};
+  match: {
+    params: {
+      id: string;
+    };
+  };
+};
+type State = {
+  value: string;
+};
+const Index = (props: Props) => {
   let { id } = useParams();
+  //console.log(props.match);
 
   return (
     <div className="container mt-5">
@@ -13,7 +25,7 @@ const Index = () => {
 
       <div className="d-flex flex-row align-self-start">
         <StoreName />
-        <FormGroup />
+        <Form url={props.match.params.id} />
       </div>
     </div>
   );

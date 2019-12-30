@@ -7,7 +7,7 @@ import { isVNPhoneMobile } from "../../Constants/Regex";
 import { connect } from "react-redux";
 import { StateInit } from "../../Redux";
 
-interface State {
+export interface State {
   //userStore:StoreJson
   id: string;
   avatar: string;
@@ -17,12 +17,13 @@ interface State {
   city: string;
   phone: string;
   redInvoice: redInvoice;
+  //companys:any[]
 }
 interface Props {
-  companys: State;
+  companys: [];
+  url: {};
 }
 class Form extends React.Component<Props, State> {
-  //const { address, phone, name, taxCode, } = props;
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -40,6 +41,8 @@ class Form extends React.Component<Props, State> {
         city: "",
         name_office: ""
       }
+      //companys:[]
+
       // userStore:{
       //   id: "",
       //   avatar: "",
@@ -84,142 +87,271 @@ class Form extends React.Component<Props, State> {
     }
   };
   render() {
-    console.log("log ra toàn bộ prop",this.props);
-    
+    console.log("log ra id company", this.props.url);
     const { companys } = this.props;
-    console.log("this.props.companys:",companys)
-    return (
-      <React.Fragment>
-        <Titleh4 title="Basic Info" />
-        <div className="p-2 bd-highlight" style={{ width: "70%" }}>
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="storeName">Store name</label>
-              {companys ? (
-                <input
-                  type="text"
-                  className="form-control"
-                  id="storeName"
-                  value={"" + companys.name + ""}
-                />
-              ) : (
-                <input
-                  type="text"
-                  className="form-control"
-                  id="storeName"
-                  onChange={event =>
-                    this.setState({ name: event.target.value })
-                  }
-                />
-              )}
-              {/* <input
-                type="text"
-                className="form-control"
-                id="storeName"
-                onChange={event => this.setState({ name: event.target.value })}
-              /> */}
-            </div>
-            <div className="d-flex flex-row align-items-end">
-              <div className="form-group flex-fill">
-                <label htmlFor="storeaddress">Store address</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="storeaddress"
-                  placeholder="Address"
-                  onChange={event =>
-                    this.setState({ address: event.target.value })
-                  }
-                />
-              </div>
-              <Address />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phone">Phone #</label>
-              <input
-                type="number"
-                className="form-control"
-                id="phone"
-                onChange={event => this.setState({ phone: event.target.value })}
-              />
-            </div>
-            <Titleh4 title="Red Invoice Info" />
-
-            <div className="form-group">
-              <label htmlFor="companyName">Company Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="companyName"
-                onChange={event =>
-                  this.setState({
-                    redInvoice: {
-                      taxCode: this.state.redInvoice.taxCode,
-                      address: this.state.redInvoice.address,
-                      district: this.state.redInvoice.district,
-                      city: this.state.redInvoice.city,
-                      name_office: event.target.value
-                    }
-                  })
-                }
-              />
-            </div>
-            <div className="d-flex flex-row align-items-end">
-              <div className="form-group flex-fill">
-                <label htmlFor="storeaddress">Store Address</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="storeaddress"
-                  placeholder="Address"
-                  onChange={event =>
-                    this.setState({
-                      redInvoice: {
-                        taxCode: this.state.redInvoice.taxCode,
-                        address: event.target.value,
-                        district: this.state.redInvoice.district,
-                        city: this.state.redInvoice.city,
-                        name_office: this.state.redInvoice.name_office
+    console.log("this.props.companys:", companys);
+    return(
+      companys.map((item: State, index) => {
+        if (index == this.props.url) {
+          console.log("ten cong ty la: ", item.name);
+          return (
+            <React.Fragment>
+              <Titleh4 title="Basic Info" />
+              <div className="p-2 bd-highlight" style={{ width: "70%" }}>
+                <form onSubmit={this.handleSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="storeName">Store name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="storeName"
+                      value={item.name}
+                      onChange={event =>
+                        this.setState({ name: event.target.value })
                       }
-                    })
-                  }
-                />
+                    />
+                  </div>
+                  <div className="d-flex flex-row align-items-end">
+                    <div className="form-group flex-fill">
+                      <label htmlFor="storeaddress">Store address</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="storeaddress"
+                        placeholder="Address"
+                        value={item.address}
+                        onChange={event =>
+                          this.setState({ address: event.target.value })
+                        }
+                      />
+                    </div>
+                    <Address />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone #</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="phone"
+                      value={item.phone}
+                      onChange={event =>
+                        this.setState({ phone: event.target.value })
+                      }
+                    />
+                  </div>
+                  <Titleh4 title="Red Invoice Info" />
+  
+                  <div className="form-group">
+                    <label htmlFor="companyName">Company Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="companyName"
+                      value={item.redInvoice.name_office}
+                      onChange={event =>
+                        this.setState({
+                          redInvoice: {
+                            taxCode: this.state.redInvoice.taxCode,
+                            address: this.state.redInvoice.address,
+                            district: this.state.redInvoice.district,
+                            city: this.state.redInvoice.city,
+                            name_office: event.target.value
+                          }
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="d-flex flex-row align-items-end">
+                    <div className="form-group flex-fill">
+                      <label htmlFor="storeaddress">Store Address</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="storeaddress"
+                        placeholder="Address"
+                        value={item.redInvoice.address}
+                        onChange={event =>
+                          this.setState({
+                            redInvoice: {
+                              taxCode: this.state.redInvoice.taxCode,
+                              address: event.target.value,
+                              district: this.state.redInvoice.district,
+                              city: this.state.redInvoice.city,
+                              name_office: this.state.redInvoice.name_office
+                            }
+                          })
+                        }
+                      />
+                    </div>
+                    <Address />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="mst">MST</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="mst"
+                      value={item.redInvoice.taxCode}
+                      onChange={event =>
+                        this.setState({
+                          redInvoice: {
+                            taxCode: this.state.redInvoice.taxCode,
+                            address: this.state.redInvoice.address,
+                            district: event.target.value,
+                            city: this.state.redInvoice.city,
+                            name_office: this.state.redInvoice.name_office
+                          }
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="group-button">
+                    <input type="submit" value="Submit" />
+                    {/* <Button title="Save" block="btn-block" type="success" name="save" /> */}
+                    <Button
+                      title="Cancel"
+                      type="light"
+                      block="btn-block"
+                      name="remove"
+                    />
+                  </div>
+                </form>
               </div>
-              <Address />
-            </div>
-            <div className="form-group">
-              <label htmlFor="mst">MST</label>
-              <input
-                type="number"
-                className="form-control"
-                id="mst"
-                onChange={event =>
-                  this.setState({
-                    redInvoice: {
-                      taxCode: this.state.redInvoice.taxCode,
-                      address: this.state.redInvoice.address,
-                      district: event.target.value,
-                      city: this.state.redInvoice.city,
-                      name_office: this.state.redInvoice.name_office
-                    }
-                  })
-                }
-              />
-            </div>
-            <div className="group-button">
-              <input type="submit" value="Submit" />
-              {/* <Button title="Save" block="btn-block" type="success" name="save" /> */}
-              <Button
-                title="Cancel"
-                type="light"
-                block="btn-block"
-                name="remove"
-              />
-            </div>
-          </form>
-        </div>
-      </React.Fragment>
+            </React.Fragment>
+          );
+        }else{
+          return (
+            <React.Fragment>
+              <Titleh4 title="Basic Info" />
+              <div className="p-2 bd-highlight" style={{ width: "70%" }}>
+                <form onSubmit={this.handleSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="storeName">Store name</label>
+                    {companys ? (
+                      <input type="text" className="form-control" id="storeName" />
+                    ) : (
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="storeName"
+                        onChange={event =>
+                          this.setState({ name: event.target.value })
+                        }
+                      />
+                    )}
+                    {/* <input
+                      type="text"
+                      className="form-control"
+                      id="storeName"
+                      onChange={event => this.setState({ name: event.target.value })}
+                    /> */}
+                  </div>
+                  <div className="d-flex flex-row align-items-end">
+                    <div className="form-group flex-fill">
+                      <label htmlFor="storeaddress">Store address</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="storeaddress"
+                        placeholder="Address"
+                        onChange={event =>
+                          this.setState({ address: event.target.value })
+                        }
+                      />
+                    </div>
+                    <Address />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone #</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="phone"
+                      onChange={event => this.setState({ phone: event.target.value })}
+                    />
+                  </div>
+                  <Titleh4 title="Red Invoice Info" />
+      
+                  <div className="form-group">
+                    <label htmlFor="companyName">Company Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="companyName"
+                      onChange={event =>
+                        this.setState({
+                          redInvoice: {
+                            taxCode: this.state.redInvoice.taxCode,
+                            address: this.state.redInvoice.address,
+                            district: this.state.redInvoice.district,
+                            city: this.state.redInvoice.city,
+                            name_office: event.target.value
+                          }
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="d-flex flex-row align-items-end">
+                    <div className="form-group flex-fill">
+                      <label htmlFor="storeaddress">Store Address</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="storeaddress"
+                        placeholder="Address"
+                        onChange={event =>
+                          this.setState({
+                            redInvoice: {
+                              taxCode: this.state.redInvoice.taxCode,
+                              address: event.target.value,
+                              district: this.state.redInvoice.district,
+                              city: this.state.redInvoice.city,
+                              name_office: this.state.redInvoice.name_office
+                            }
+                          })
+                        }
+                      />
+                    </div>
+                    <Address />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="mst">MST</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="mst"
+                      onChange={event =>
+                        this.setState({
+                          redInvoice: {
+                            taxCode: this.state.redInvoice.taxCode,
+                            address: this.state.redInvoice.address,
+                            district: event.target.value,
+                            city: this.state.redInvoice.city,
+                            name_office: this.state.redInvoice.name_office
+                          }
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="group-button">
+                    <input type="submit" value="Submit" />
+                    {/* <Button title="Save" block="btn-block" type="success" name="save" /> */}
+                    <Button
+                      title="Cancel"
+                      type="light"
+                      block="btn-block"
+                      name="remove"
+                    />
+                  </div>
+                </form>
+              </div>
+            </React.Fragment>
+          );
+        }
+      })
     );
+    
+    
   }
 }
 const mapStateToProps = (state: StateInit) => {
